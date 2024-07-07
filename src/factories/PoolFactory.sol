@@ -52,7 +52,9 @@ contract PoolFactory is IPoolFactory, BeaconProxyFactory {
    */
   function createPool(
     address liquidityAsset,
-    IPoolConfigurableSettings calldata settings
+    IPoolConfigurableSettings calldata settings,
+    string calldata name,
+    string calldata symbol
   ) public virtual returns (address poolAddress) {
     require(implementation != address(0), 'PoolFactory: no implementation set');
     require(_serviceConfiguration.paused() == false, 'PoolFactory: Protocol paused');
@@ -71,7 +73,7 @@ contract PoolFactory is IPoolFactory, BeaconProxyFactory {
     require(_serviceConfiguration.isLiquidityAsset(liquidityAsset), 'PoolFactory: invalid asset');
 
     // Create the pool
-    address addr = initializePool(liquidityAsset, settings);
+    address addr = initializePool(liquidityAsset, settings, name, symbol);
     emit PoolCreated(addr);
     return addr;
   }
@@ -81,7 +83,9 @@ contract PoolFactory is IPoolFactory, BeaconProxyFactory {
    */
   function initializePool(
     address liquidityAsset,
-    IPoolConfigurableSettings calldata settings
+    IPoolConfigurableSettings calldata settings,
+    string calldata name,
+    string calldata symbol
   ) internal virtual returns (address) {
     // Create beacon proxy
     BeaconProxy proxy = new BeaconProxy(
@@ -95,8 +99,8 @@ contract PoolFactory is IPoolFactory, BeaconProxyFactory {
         _poolControllerFactory,
         _vaultFactory,
         settings,
-        'PerimeterPoolToken',
-        'PPT'
+        name,
+        symbol
       )
     );
     return address(proxy);

@@ -820,13 +820,4 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
     super._beforeTokenTransfer(from, to, amount);
     require(to == address(0) || from == address(0), 'Pool: transfers disabled');
   }
-
-  /**
-   * @dev Override the decimals.
-   */
-  function decimals() public view virtual override returns (uint8) {
-    (bool success, bytes memory result) = address(_liquidityAsset).staticcall(abi.encodeWithSelector(bytes4(keccak256("decimals()"))));
-    require(success, "Call failed");
-    return abi.decode(result, (uint8));
-  }
 }
