@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: Apache-2.0
 pragma solidity ^0.8.16;
 
 import { SafeMath } from '@openzeppelin/contracts/utils/math/SafeMath.sol';
@@ -79,8 +79,7 @@ contract Loan is ILoan, BeaconImplementation {
    * @dev Modifier that can be overriden by derived classes to enforce
    * access control.
    */
-  modifier onlyPermittedBorrower() {
-    require(_serviceConfiguration.isPermittedBorrower(msg.sender), "Not permitted borrower");
+  modifier onlyPermittedBorrower() virtual {
     _;
   }
 

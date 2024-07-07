@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.16;
 
 import './IServiceConfiguration.sol';
@@ -29,11 +29,11 @@ enum ILoanType {
  * @title The various Loan terms.
  */
 struct ILoanSettings {
-  ILoanType loanType; // fixed or open term
+  ILoanType loanType;
   uint256 principal;
-  uint256 apr; 
-  uint256 duration; // in days, daily interest is calculated on 30/360 basis
-  uint256 paymentPeriod; // paymentPeriod must evenly divise duration
+  uint256 apr;
+  uint256 duration;
+  uint256 paymentPeriod;
   uint256 dropDeadTimestamp;
   uint256 latePayment;
   uint256 originationBps;

@@ -129,8 +129,9 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
    * @dev Modifier that can be overriden by derived classes to enforce
    * access control.
    */
-  modifier onlyPermittedLender() {
-    require(_serviceConfiguration.isPermittedLender(msg.sender), "Not permitted lender");
+  modifier onlyPermittedLender() virtual {
+    // TODO: Add a mapping and related functions for qualified lenders' addresses after the whitelist mechanism has been implemented. ---Sean
+
     _;
   }
 

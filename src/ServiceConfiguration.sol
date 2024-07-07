@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.16;
 
 import '@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol';
@@ -54,6 +54,15 @@ contract ServiceConfiguration is IServiceConfiguration, AccessControlUpgradeable
    * @inheritdoc IServiceConfiguration
    */
   mapping(address => bool) public isLoanFactory;
+
+  /**
+   * @dev Mapping of permitted lenders.
+   */
+  mapping(address => bool) public isPermittedLender;
+  /**
+   * @dev Mapping of permitted borrowers.
+   */
+  mapping(address => bool) public isPermittedBorrower;
 
   /**
    * @dev Modifier that checks that the caller account has the Operator role.
@@ -138,4 +147,23 @@ contract ServiceConfiguration is IServiceConfiguration, AccessControlUpgradeable
     firstLossFeeBps = value;
     emit ParameterSet('firstLossFeeBps', value);
   }
+
+  /**
+   * @inheritdoc IServiceConfiguration
+   */
+  function togglePermittedLender(address lender, bool newStatus) public onlyOperator {
+    require(newStatus != isPermittedLender[lender], "Unchanged status");
+    isPermittedLender[lender] = newStatus;
+    emit PermittedLenderToggled(lender, newStatus);
+  }
+
+  /**
+   * @inheritdoc IServiceConfiguration
+   */
+  function togglePermittedBorrower(address borrower, bool newStatus) public onlyOperator {
+    require(newStatus != isPermittedBorrower[borrower], "Unchanged status");
+    isPermittedBorrower[borrower] = newStatus;
+    emit PermittedBorrowerToggled(borrower, newStatus);
+  }
+
 }

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.16;
 
 /**
@@ -39,6 +39,17 @@ interface IServiceConfiguration {
    * @dev Emitted when the TermsOfServiceRegistry is set
    */
   event TermsOfServiceRegistrySet(address indexed registry);
+
+  /**
+   * @dev Emitted when a lender's whitelist status is successfully toggled.
+   */
+  event PermittedLenderToggled(address indexed lender, bool newStatus);
+
+  /**
+   * @dev Emitted when a borrower's whitelist status is successfully toggled.
+   */
+  event PermittedBorrowerToggled(address indexed borrower, bool newStatus);
+
 
   /**
    * @dev checks if a given address has the Operator role
@@ -108,4 +119,29 @@ interface IServiceConfiguration {
    * @param value Whether supported or not
    */
   function setLiquidityAsset(address addr, bool value) external;
+
+  /**
+   * @dev Toggle the status of a permitted lender.
+   */
+  function togglePermittedLender(address lender, bool newStatus) external;
+
+  /**
+   * @dev Toggle the status of a permitted borrower.
+   */
+  function togglePermittedBorrower(address borrower, bool newStatus) external;
+
+  /**
+   * @dev checks if an address is a permitted lender
+   * @param lender Address to check
+   * @return bool whether the lender is permitted
+   */
+  function isPermittedLender(address lender) external view returns (bool);
+
+  /**
+   * @dev checks if an address is a permitted borrower
+   * @param borrower Address to check
+   * @return bool whether the borrower is permitted
+   */
+  function isPermittedBorrower(address borrower) external view returns (bool);
+  
 }
