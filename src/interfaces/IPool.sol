@@ -147,6 +147,11 @@ interface IPool is IERC4626, IRequestWithdrawable {
   function fundLoan(address) external;
 
   /**
+   * @dev Allow the current pool admin to manually change the hasFunded status via controller.
+   */
+  function setHasFunded(bool newStatus) external;
+
+  /**
    * @dev Called by a loan, it notifies the pool that the loan has returned
    * principal to the pool.
    */

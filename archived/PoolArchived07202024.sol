@@ -75,11 +75,6 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
   uint256 public activatedAt;
 
   /**
-   * @dev In a 1:1 pool-loan set up, when the fund has been sent, no new depositors are allowed.
-   */
-  bool public hasFunded;
-
-  /**
    * @dev Modifier to ensure only the PoolController calls a method.
    */
   modifier onlyPoolController() {
@@ -261,8 +256,7 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
    * @inheritdoc IPool
    */
   function fundLoan(address addr) external onlyNotPaused onlyPoolController onlySnapshottedPool {
-    require(!_fundedLoans[addr] && !hasFunded, 'Pool: already funded');
-    hasFunded = true;
+    require(!_fundedLoans[addr], 'Pool: already funded');
     _fundedLoans[addr] = true;
     ILoan loan = ILoan(addr);
     uint256 principal = loan.principal();
@@ -275,13 +269,6 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
     _accountings.outstandingLoanPrincipals += principal;
 
     emit LoanFunded(addr, principal);
-  }
-
-  /**
-   * @inheritdoc IPool
-   */
-  function setHasFunded(bool newStatus) external onlyPoolController {
-    hasFunded = newStatus;
   }
 
   /**
@@ -668,7 +655,6 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
     onlySnapshottedPool
     returns (uint256 shares)
   {
-    require(!hasFunded, 'Pool: already funded');
     require(msg.sender == receiver, 'Pool: invalid receiver');
     shares = PoolLib.executeDeposit(
       asset(),

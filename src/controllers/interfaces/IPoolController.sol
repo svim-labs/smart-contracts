@@ -90,6 +90,11 @@ interface IPoolController {
   function setFixedFee(uint256 amount, uint256 interval) external;
 
   /**
+   * @dev Allow the current pool admin to manually change the hasFunded status.
+   */
+  function setHasFunded(bool newStatus) external;
+
+  /**
    * @dev Allow the current pool admin to update the pool fees
    * before the pool has been activated.
    */

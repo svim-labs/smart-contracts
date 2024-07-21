@@ -394,13 +394,6 @@ contract PoolController is IPoolController, BeaconImplementation {
   /**
    * @inheritdoc IPoolController
    */
-  function setHasFunded(bool newStatus) external onlyPermittedAdmin onlyAdmin {
-    pool.setHasFunded(newStatus);
-  }
-
-  /**
-   * @inheritdoc IPoolController
-   */
   function defaultLoan(
     address loan
   ) external onlyNotPaused onlyPermittedAdmin onlyAdmin atActiveOrClosedState onlySnapshottedPool {
