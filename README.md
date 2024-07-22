@@ -80,10 +80,12 @@ $ cast --help
 ## Helper script
 Define env variables
 ```
-PRIVATE_KEY=your_private_key
+PRIVATE_KEY=your_private_key #THIS IS SENSITIVE INFO
+SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/<ALCHEMY API KEY>
 ```
 ### To create loan
+Because Create Loan cannot be handled in etherscan, so we can only run locally
 ```
 source .env
-forge script script/CreateLoan.s.sol:CreateLoanScript --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --env LOAN_CONTRACT_ADDRESS=0xe58797710aebd14f4420fce7739d61a6ab06cbad --env BORROWER_ADDRESS=0xborrowerAddress --env LOAN_AMOUNT=1000000000000000000
+forge script scripts/CreateLoan.s.sol:CreateLoanScript --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --sig "run(address,address)" <YOUR WALLET ADDRESS> <POOL ADDRESS>
 ```
