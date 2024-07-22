@@ -15,6 +15,18 @@ https://book.getfoundry.sh/
 
 ## Usage
 
+### 
+```
+#for MacOS
+brew install libusb
+
+curl -L https://foundry.paradigm.xyz | bash
+
+#for MacOS
+source ~/.zshrc 
+
+foundryup
+```
 ### Build
 
 ```shell
@@ -63,4 +75,15 @@ $ cast <subcommand>
 $ forge --help
 $ anvil --help
 $ cast --help
+```
+
+## Helper script
+Define env variables
+```
+PRIVATE_KEY=your_private_key
+```
+### To create loan
+```
+source .env
+forge script script/CreateLoan.s.sol:CreateLoanScript --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --env LOAN_CONTRACT_ADDRESS=0xe58797710aebd14f4420fce7739d61a6ab06cbad --env BORROWER_ADDRESS=0xborrowerAddress --env LOAN_AMOUNT=1000000000000000000
 ```
