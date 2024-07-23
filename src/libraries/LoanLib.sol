@@ -64,7 +64,7 @@ library LoanLib {
   ) external view {
     require(duration > 0, 'LoanLib: Duration cannot be zero');
     require(paymentPeriod > 0, 'LoanLib: Payment period cannot be zero');
-    require(paymentPeriod >= 30, 'LoanLib: Payment period must be at least 30 days');
+    require(paymentPeriod >= 1, 'LoanLib: Payment period must be at least 1 day');
     require(duration.mod(paymentPeriod) == 0, 'LoanLib: Duration not evenly divisible');
     require(principal > 0, 'LoanLib: Principal cannot be zero');
 
