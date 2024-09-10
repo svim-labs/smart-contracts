@@ -1,4 +1,4 @@
-## This repo is a mirror of the entire architecture of Svim Finance's smart contracts in production (excluding the scriptes of deployment, operations and bots...etc.) for open source purposes.
+## This repo is a mirror of the entire architecture of Svim Finance's smart contracts in production (excluding the scripts of deployment, operations and bots...etc.) for open source purposes.
 
 **For questions, please contact @dev Sean -- sean.xu@svim.io**
 
