@@ -1,4 +1,4 @@
-## This repo is not the production repo of the Svim Finance dAPP, but is a mirror of the entire architecture of it's smart contracts (excluding the scriptes of deployment, operations and bots...etc.) for open source purposes.
+## This repo is a mirror of the entire architecture of Svim Finance's smart contracts in production (excluding the scriptes of deployment, operations and bots...etc.) for open source purposes.
 
 **For questions, please contact @dev Sean -- sean.xu@svim.io**
 
