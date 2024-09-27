@@ -94,7 +94,7 @@ interface IERC4626 is IERC20Upgradeable {
    * Emits a {Withdraw} event.
    * Should round UP for EIP4626.
    */
-  function withdraw(uint256 assets, address receiver, address owner) external returns (uint256);
+  function withdraw(uint256 assets, address receiver, address owner, uint256 limit) external returns (uint256);
 
   /**
    * @dev The maximum amount of shares that can be redeemed from the owner balance through a redeem call.
@@ -112,5 +112,5 @@ interface IERC4626 is IERC20Upgradeable {
    * Emits a {Withdraw} event.
    * Per EIP4626, should round DOWN.
    */
-  function redeem(uint256 shares, address receiver, address owner) external returns (uint256);
+  function redeem(uint256 shares, address receiver, address owner, uint256 limit) external returns (uint256);
 }
