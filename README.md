@@ -1,3 +1,9 @@
+## This repo is a mirror of the entire architecture of Svim Finance's smart contracts in production (excluding the scripts of deployment, operations and bots...etc.) for open source purposes.
+
+**For questions, please contact @dev Sean -- sean.xu@svim.io**
+
+-----------------------------------------------
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
