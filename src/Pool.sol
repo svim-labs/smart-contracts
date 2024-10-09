@@ -760,12 +760,14 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
     require(receiver == owner, 'Pool: Withdrawal to unrelated address');
     require(receiver == msg.sender, 'Pool: Must transfer to msg.sender');
     require(assets > 0, 'Pool: 0 withdraw not allowed');
-    require(maxWithdraw(owner) >= assets, 'Pool: InsufficientBalance');
+    
 
     // Claim any required snapshots
     if (claimRequired(owner)) {
       claimSnapshots(limit);
     } 
+
+    require(maxWithdraw(owner) >= assets, 'Pool: InsufficientBalance');
 
     // Update the withdraw state
     shares = withdrawController.withdraw(owner, assets);
@@ -803,12 +805,14 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
     require(receiver == owner, 'Pool: Withdrawal to unrelated address');
     require(receiver == msg.sender, 'Pool: Must transfer to msg.sender');
     require(shares > 0, 'Pool: 0 redeem not allowed');
-    require(maxRedeem(owner) >= shares, 'Pool: InsufficientBalance'); 
+    
 
     // Claim any required snapshots
     if (claimRequired(owner)) {
       claimSnapshots(limit);
     } 
+
+    require(maxRedeem(owner) >= shares, 'Pool: InsufficientBalance'); 
 
     // Update the withdraw state
     assets = withdrawController.redeem(owner, shares);
