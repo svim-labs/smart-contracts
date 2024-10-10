@@ -777,6 +777,34 @@ contract Pool is IPool, ERC20Upgradeable, BeaconImplementation {
   }
 
   /**
+   * @dev A special withdraw function to work better with the UI.
+   */
+  function withdrawMax(
+    address receiver,
+    address owner,
+    uint256 limit
+  ) public virtual onlyNotPaused onlyPermittedLender onlySnapshottedPool returns (uint256 shares) {
+    require(receiver == owner, 'Pool: Withdrawal to unrelated address');
+    require(receiver == msg.sender, 'Pool: Must transfer to msg.sender');
+
+    // Claim any required snapshots
+    if (claimRequired(owner)) {
+      claimSnapshots(limit);
+    } 
+
+    uint256 assets = maxWithdraw(owner);
+
+
+    require(assets > 0, 'Pool: 0 withdraw not allowed');
+
+    // Update the withdraw state
+    shares = withdrawController.withdraw(owner, assets);
+
+    // transfer assets, and burn the shares
+    _performWithdrawTransfer(owner, shares, assets);
+  }
+
+  /**
    * @inheritdoc IERC4626
    */
   function maxRedeem(address owner) public view virtual override returns (uint256 maxShares) {

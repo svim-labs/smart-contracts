@@ -207,4 +207,6 @@ interface IPool is IERC4626, IRequestWithdrawable {
    * @dev Determines whether a lender has any funds across snapshots eligible for claiming.
    */
   function claimRequired(address lender) external view returns (bool);
+
+  function withdrawMax(address receiver, address owner, uint256 limit) external returns (uint256);
 }
